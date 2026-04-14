@@ -275,13 +275,14 @@ const [dialogOpen, setDialogOpen] = useState(false);
                   <TableCell>{job.description}</TableCell>
                   <TableCell>
                     {job.lessonPlanUrl ? (
-                      <a
-                        href={job.lessonPlanUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Open
-                      </a>
+                     <a
+  href={job.lessonPlanUrl}
+  target="_blank"
+  rel="noreferrer"
+  style={{ color: '#1565c0', fontWeight: 500 }}
+>
+  View Plan
+</a>
                     ) : (
                       'None'
                     )}
@@ -322,17 +323,27 @@ const [dialogOpen, setDialogOpen] = useState(false);
                         </>
                       )}
 
-                      {role === 'sub' && job.status === 'open' && (
-                        <Button
-                          variant="contained"
-                          color="success"
-                          size="small"
-                          startIcon={<CheckCircleIcon />}
-                          onClick={() => handleAcceptJob(job._id)}
-                        >
-                          ACCEPT
-                        </Button>
-                      )}
+                      {role === 'sub' && (
+  job.status === 'open' ? (
+    <Button
+      variant="contained"
+      color="success"
+      size="small"
+      startIcon={<CheckCircleIcon />}
+      onClick={() => handleAcceptJob(job._id)}
+    >
+      ACCEPT
+    </Button>
+  ) : (
+    <Button
+      variant="contained"
+      size="small"
+      disabled
+    >
+      ACCEPTED
+    </Button>
+  )
+)}
 
                       <Button
                         variant="outlined"

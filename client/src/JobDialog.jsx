@@ -148,7 +148,14 @@ export default function JobDialog({ open, mode, onClose, onSave, initialData }) 
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth>
+    <Dialog
+  open={open}
+  onClose={(event, reason) => {
+    if (reason === 'backdropClick') return;
+    onClose();
+  }}
+  fullWidth
+>
       <DialogTitle
         sx={{ backgroundColor: '#424242', color: 'white', fontWeight: 600 }}
       >
@@ -190,16 +197,19 @@ export default function JobDialog({ open, mode, onClose, onSave, initialData }) 
         />
 
         <TextField
-          fullWidth
-          type="date"
-          label="Date"
-          margin="normal"
-          value={formData.date}
-          onChange={handleChange('date')}
-          error={Boolean(errors.date)}
-          helperText={errors.date}
-          InputLabelProps={{ shrink: true }}
-        />
+  fullWidth
+  type="date"
+  label="Date"
+  margin="normal"
+  value={formData.date}
+  onChange={handleChange('date')}
+  error={Boolean(errors.date)}
+  helperText={errors.date}
+  InputLabelProps={{ shrink: true }}
+  inputProps={{
+    min: new Date().toISOString().split('T')[0],
+  }}
+/>
 
         <TextField
           fullWidth
@@ -244,7 +254,7 @@ export default function JobDialog({ open, mode, onClose, onSave, initialData }) 
           value={formData.lessonPlanUrl}
           onChange={handleChange('lessonPlanUrl')}
           error={Boolean(errors.lessonPlanUrl)}
-          helperText={errors.lessonPlanUrl || 'Optional'}
+          helperText={errors.lessonPlanUrl || 'Optional. Must start with http:// or https://'}
         />
       </DialogContent>
 
