@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5001/api',
+  baseURL: 'https://sub-finder-api.onrender.com/',
 });
 
 export const getJobs = () => API.get('/jobs');
